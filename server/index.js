@@ -1,7 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
-const { urlencoded } = require('express');
 const { db } = require('./db');
 
 dotenv.config();
@@ -14,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 // app.use('/api', require('./api'));
 
 const init = async () => {
-  await db.sync();
+  await db.sync({ force: true });
   const PORT = process.env.PORT || 5000;
   app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
 };
