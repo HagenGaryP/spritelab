@@ -8,7 +8,16 @@ const Session = db.define('session', {
     validate: {
       notEmpty: true
     }
+  },
+  frames: {
+    type: Sequelize.ARRAY(Sequelize.JSON),
+
+  },
+  users: {
+    type: Sequelize.ARRAY(Sequelize.JSON),
+
   }
+
 });
 
 module.exports = Session;

@@ -5,9 +5,10 @@ const User = require('./user');
 
 // associations
 
-User.belongsToMany(Frame, { through: Session });
-Frame.belongsToMany(User, { through: Session });
+// User.belongsToMany(Frame, { through: Session });
+// Frame.belongsToMany(User, { through: Session });
 
+User.belongsTo(Session);
 
 module.exports = {
   db,
