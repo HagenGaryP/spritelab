@@ -1,21 +1,25 @@
 const express = require('express');
-const morgan = require('morgan');
-const dotenv = require('dotenv');
-const { db } = require('./db');
-
-dotenv.config();
-
 const app = express();
+const path = require('path');
+const morgan = require('morgan');
+
+app.use(morgan('dev'));
+
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use('/api', require('./api'));
+app.get('*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
 
-const init = async () => {
-  await db.sync({ force: true });
-  const PORT = process.env.PORT || 5000;
-  app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
-};
+app.use(function (err, req, res, next) {
+  console.error(err);
+  console.error(err.stack);
+  res.status(err.status || 500).send(err.message || 'Internal server error.');
+});
 
-init();
+const PORT = process.env.PORT || 3000; // this can be very useful if you deploy to Heroku!
+
+module.exports = app;

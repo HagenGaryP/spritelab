@@ -4,21 +4,38 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./server/index.js",
-    "server": "nodemon ./server/index.js"
+    "seed": "node script/seed.js",
+    "start": "node main.js",
+    "start-dev": "webpack -w & nodemon main.js",
+    "deploy": "script/deploy"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-decorators": "^7.10.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "pg": "^8.4.2",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.3.5"
+    "react": "^16.13.1",
+    "react-color": "^2.18.1",
+    "react-dom": "^16.13.1",
+    "react-input-slider": "^5.1.7",
+    "react-router-dom": "^5.1.2",
+    "sequelize": "^6.3.5",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
   }
 }
