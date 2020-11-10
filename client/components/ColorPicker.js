@@ -15,10 +15,10 @@ const ColorPicker = (props) => {
   }, [currentColor]);
 
   return (
-    <div className=''>
+    <div className="">
       <div>
         <SketchPicker
-          className='sketch'
+          className="sketch"
           color={currentColor}
           disableAlpha={true}
           onChangeComplete={handleChangeComplete}
