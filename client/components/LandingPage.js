@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { auth } from './auth-form';
 
 function LandingPage() {
   let chars = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
@@ -10,16 +11,16 @@ function LandingPage() {
   }
 
   return (
-    <div className='container'>
-      <div className='landing-container'>
-        <div className='center-box'>
+    <div className="container">
+      <div className="landing-container">
+        <div className="center-box">
           <h1>SpriteFox</h1>
           <p>
             A real-time, collaborative editor
             <br />
             for creating animated sprites and pixel art
           </p>
-          <Link className='btn landing-btn' to={`/${hash}`}>
+          <Link className="btn landing-btn" to={`/${hash}`}>
             Create Sprite
           </Link>
         </div>
