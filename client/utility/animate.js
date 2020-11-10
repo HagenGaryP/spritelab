@@ -1,9 +1,4 @@
-export function animate(
-  framesArray,
-  getCanvas,
-  fps,
-  currentFrame
-) {
+export function animate(framesArray, getCanvas, fps, currentFrame) {
   let len = framesArray.length;
   let interval = 0;
   let startingFrame = parseInt(currentFrame) - 1;
@@ -14,6 +9,6 @@ export function animate(
     interval = interval + 1000 / fps;
   }
   setTimeout(() => {
-    getCanvas(framesArray[startingFrame])
+    getCanvas(framesArray[startingFrame]);
   }, interval + 1);
 }
