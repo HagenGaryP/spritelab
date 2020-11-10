@@ -55,7 +55,7 @@ const Canvas = (props) => {
       addBlankFrame();
     }
 
-    setColorsUsed(initialColors);
+    // setColorsUsed(initialColors);
     setFramesArray(initialFrames)
     setCurrentFrame(`${frameCounter}`);
     getCanvas(currentFrame);
@@ -74,7 +74,10 @@ const Canvas = (props) => {
   // --------- TOGGLE TOOL--------- //
   function toggleTool() {
     // toggles between draw and erase
-    setTool(!tool);
+    if (tool) {
+      setTool(false);
+    } else setTool(true);
+
   };
 
   // --------- TOGGLE INSTRUCTIONS--------- //
@@ -233,14 +236,14 @@ const Canvas = (props) => {
 
   // --------- DELETE PIXEL --------- //
   function deletePixel(defaultX, defaultY) {
-    const canvas = canvas.current.getBoundingClientRect();
+    const canvasRect = canvas.getBoundingClientRect();
     // These are not the actual coordinates but correspond to the place on the grid
     let x =
       defaultX ??
-      Math.floor((window.event.clientX - canvas.x) / pixelSize);
+      Math.floor((window.event.clientX - canvasRect.x) / pixelSize);
     let y =
       defaultY ??
-      Math.floor((window.event.clientY - canvas.y) / pixelSize);
+      Math.floor((window.event.clientY - canvasRect.y) / pixelSize);
     if (defaultX === undefined && defaultY === undefined) {
       socket.emit('delete', x, y);
     }
@@ -398,7 +401,7 @@ const Canvas = (props) => {
             <button
               onClick={toggleTool}
               className={`btn ${
-                setTool ? 'tool-btn tool-btn-active' : 'tool-btn'
+                tool ? 'tool-btn tool-btn-active' : 'tool-btn'
               }`}
             >
               Draw
@@ -406,7 +409,7 @@ const Canvas = (props) => {
             <button
               onClick={toggleTool}
               className={`btn ${
-                setTool ? 'tool-btn' : 'tool-btn tool-btn-active'
+                tool ? 'tool-btn' : 'tool-btn tool-btn-active'
               }`}
             >
               Erase
