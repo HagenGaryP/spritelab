@@ -58,8 +58,9 @@ const Canvas = (props) => {
       addBlankFrame();
     }
 
-    setColorsUsed(initialColors);
-    setFramesArray(initialFrames);
+
+    // setColorsUsed(initialColors);
+    setFramesArray(initialFrames)
     setCurrentFrame(`${frameCounter}`);
     getCanvas(currentFrame);
     console.log('colorsUsed', colorsUsed);
