@@ -268,7 +268,9 @@ const Canvas = (props) => {
     // MAP color to proper place on mappedGrid
     for (let i = 0; i < factor; i++) {
       for (let j = 0; j < factor; j++) {
-        mappedGrid[y * factor + i][x * factor + j] = color;
+        if (y * factor + i >= 0 && x * factor + j >= 0) {
+          mappedGrid[y * factor + i][x * factor + j] = color;
+        }
       }
     }
     // if (defaultX === undefined && defaultY === undefined) {
