@@ -58,9 +58,8 @@ const Canvas = (props) => {
       addBlankFrame();
     }
 
-
     // setColorsUsed(initialColors);
-    setFramesArray(initialFrames)
+    setFramesArray(initialFrames);
     setCurrentFrame(`${frameCounter}`);
     getCanvas(currentFrame);
     console.log('colorsUsed', colorsUsed);
@@ -287,7 +286,7 @@ const Canvas = (props) => {
 
     ctx.fillRect(actualCoordinatesX, actualCoordinatesY, pixelSize, pixelSize);
 
-    localStorage.setItem(`${currentFrame}`, JSON.stringify(mappedGrid));
+    // localStorage.setItem(`${currentFrame}`, JSON.stringify(mappedGrid));
   }
 
   // --------- MOUSE DOWN FOR DRAG--------- //
@@ -514,6 +513,16 @@ const Canvas = (props) => {
               24px
             </button>
           </div>
+          <button
+            onClick={() =>
+              localStorage.setItem(
+                `${currentFrame}`,
+                JSON.stringify(mappedGrid)
+              )
+            }
+          >
+            SAVE CURRENT FRAME
+          </button>
         </div>
       </div>
     </div>
