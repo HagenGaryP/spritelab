@@ -1,7 +1,7 @@
 {
   "name": "spritelab",
   "version": "2.0.0",
-  "description": "an e-commerce site!",
+  "description": "A drawing app.",
   "engines": {
     "node": "~12.11.1"
   },
