@@ -305,218 +305,218 @@ const Canvas = (props) => {
     window.addEventListener("mouseup", (secondEvent) => {
       canvas.removeEventListener("mousemove", handleMouseDown, true);
     });
+  }
 
-    // --------- SET PIXEL SIZE --------- //
-    function pixelChange(event) {
-      let newFactor;
-      let pixels = parseInt(event.target.value, 10);
-      if (pixels === 24) {
-        newFactor = 3;
-      } else if (pixels === 16) {
-        newFactor = 2;
-      } else if (pixels === 8) {
-        newFactor = 1;
-      }
-      // socket.emit('setPixelSize', pixels, factor);
-      setPixelSize(pixels);
-      setFactor(newFactor);
-      setPixelSelect(newFactor);
+  // --------- SET PIXEL SIZE --------- //
+  function pixelChange(event) {
+    let newFactor;
+    let pixels = parseInt(event.target.value, 10);
+    if (pixels === 24) {
+      newFactor = 3;
+    } else if (pixels === 16) {
+      newFactor = 2;
+    } else if (pixels === 8) {
+      newFactor = 1;
     }
+    // socket.emit('setPixelSize', pixels, factor);
+    setPixelSize(pixels);
+    setFactor(newFactor);
+    setPixelSelect(newFactor);
+  }
 
-    return (
-      <div>
-        <nav className="nav container">
-          <button onClick={toggleInstructions} className="btn instruct-btn">
-            Instructions
-          </button>
-          <div
-            className={`${
-              showInstructions ? "instructions show" : "instructions"
-            }`}
+  return (
+    <div>
+      <nav className="nav container">
+        <button onClick={toggleInstructions} className="btn instruct-btn">
+          Instructions
+        </button>
+        <div
+          className={`${
+            showInstructions ? "instructions show" : "instructions"
+          }`}
+        >
+          <h3>Welcome!</h3>
+          INSTRUCTIONS GO HERE
+          <button
+            onClick={toggleInstructions}
+            className="btn close-instruct-btn"
           >
-            <h3>Welcome!</h3>
-            INSTRUCTIONS GO HERE
-            <button
-              onClick={toggleInstructions}
-              className="btn close-instruct-btn"
-            >
-              Close
-            </button>
-          </div>
-        </nav>
-        <div className="main-container container">
-          <div className="toolbox-container">
-            <div className="">
-              <div>
-                <SketchPicker
-                  className="sketch"
-                  color={color}
-                  disableAlpha={true}
-                  onChangeComplete={handleChangeComplete}
-                />
-              </div>
-            </div>
-            {/* <ColorPicker currentColor={setColor} /> */}
-            <div className="tools">
-              <button
-                onClick={toggleTool}
-                className={`btn ${
-                  tool ? "tool-btn tool-btn-active" : "tool-btn"
-                }`}
-              >
-                Draw
-              </button>
-              <button
-                onClick={toggleTool}
-                className={`btn ${
-                  tool ? "tool-btn" : "tool-btn tool-btn-active"
-                }`}
-              >
-                Erase
-              </button>
-            </div>
+            Close
+          </button>
+        </div>
+      </nav>
+      <div className="main-container container">
+        <div className="toolbox-container">
+          <div className="">
             <div>
-              COLORS USED
-              {initialColors.length > 0 && !colorsUsed.length > 0
-                ? initialColors.map((colorString, index) => {
-                    <li key={index}>
-                      <button onClick={() => setColor(colorString)}>
-                        {(colorString, index)}
-                      </button>
-                    </li>;
-                  })
-                : Array.isArray(colorsUsed) &&
-                  colorsUsed.map((colorString, index) => {
-                    <li key={index}>
-                      <button onClick={() => setColor(colorString)}>
-                        {colorString}
-                      </button>
-                    </li>;
-                  })}
+              <SketchPicker
+                className="sketch"
+                color={color}
+                disableAlpha={true}
+                onChangeComplete={handleChangeComplete}
+              />
             </div>
           </div>
-          <div className="canvas-container">
-            <h3>FRAME {currentFrame}</h3>
-
-            <div className="canvas">
-              <canvas
-                className="real-canvas"
-                width={16 * 24}
-                height={16 * 24}
-                ref={canvasRef}
-                onClick={() => handleMouseDown()}
-                onMouseDown={() => dragPixel()}
-              />
-              <img
-                className="checkered-background"
-                src="checkeredBackground.png"
-                width={16 * 24}
-                height={16 * 24}
-              />
-              <canvas width={16 * 24} height={16 * 24} />
-            </div>
-
-            <div className="frames-header">
-              <div className="frames-heading">
-                <h3>CHOOSE FRAME</h3>
-                <button onClick={() => addBlankFrame()} className="btn add-btn">
-                  +
-                </button>
-              </div>
-              <hr />
-            </div>
-
-            <div className="frames-container">
-              <ul>
-                {Array.isArray(framesArray) &&
-                  framesArray.map((frame, index) => {
-                    return (
-                      <li key={index} className="frame-item">
-                        <button
-                          className="frame-name frame-btn"
-                          onClick={() => getCanvas(frame)}
-                        >
-                          Frame {frame}
-                        </button>
-                        <button
-                          className="frame-btn frame-btn-delete"
-                          onClick={() => deleteFrame(frame)}
-                        >
-                          DELETE
-                        </button>
-                      </li>
-                    );
-                  })}
-              </ul>
-            </div>
-          </div>
-          <div className="buttons-container">
-            <button onClick={resetCanvas} className="btn">
-              Reset Canvas
-            </button>
-
-            <button onClick={() => addFrame(currentFrame)} className="btn">
-              Duplicate Frame
-            </button>
-
+          {/* <ColorPicker currentColor={setColor} /> */}
+          <div className="tools">
             <button
-              onClick={() => animate(framesArray, getCanvas, fps, currentFrame)}
-              className="btn animate-btn"
+              onClick={toggleTool}
+              className={`btn ${
+                tool ? "tool-btn tool-btn-active" : "tool-btn"
+              }`}
             >
-              Animate!
+              Draw
             </button>
-
-            <button onClick={newSession} className="btn session-btn">
-              New Session
+            <button
+              onClick={toggleTool}
+              className={`btn ${
+                tool ? "tool-btn" : "tool-btn tool-btn-active"
+              }`}
+            >
+              Erase
             </button>
+          </div>
+          <div>
+            COLORS USED
+            {initialColors.length > 0 && !colorsUsed.length > 0
+              ? initialColors.map((colorString, index) => {
+                  <li key={index}>
+                    <button onClick={() => setColor(colorString)}>
+                      {(colorString, index)}
+                    </button>
+                  </li>;
+                })
+              : Array.isArray(colorsUsed) &&
+                colorsUsed.map((colorString, index) => {
+                  <li key={index}>
+                    <button onClick={() => setColor(colorString)}>
+                      {colorString}
+                    </button>
+                  </li>;
+                })}
+          </div>
+        </div>
+        <div className="canvas-container">
+          <h3>FRAME {currentFrame}</h3>
 
-            <div className="slider-container">
-              <h3 className="slider-header">{fps} FPS</h3>
-              <div>
-                <Slider
-                  xmax={10}
-                  xmin={1}
-                  axis="x"
-                  x={fps}
-                  onChange={({ x }) => setFps(x)}
-                  className="slider-bar"
-                />
-              </div>
-            </div>
-            <div className="pixel-buttons tools">
-              <button
-                onClick={pixelChange}
-                className={`btn ${
-                  pixelSelect === 1 ? "pixel-btn pixel-btn-active" : "pixel-btn"
-                }`}
-                value={8}
-              >
-                8px
-              </button>
-              <button
-                onClick={pixelChange}
-                className={`btn ${
-                  pixelSelect === 2 ? "pixel-btn pixel-btn-active" : "pixel-btn"
-                }`}
-                value={16}
-              >
-                16px
-              </button>
-              <button
-                onClick={pixelChange}
-                className={`btn ${
-                  pixelSelect === 3 ? "pixel-btn pixel-btn-active" : "pixel-btn"
-                }`}
-                value={24}
-              >
-                24px
+          <div className="canvas">
+            <canvas
+              className="real-canvas"
+              width={16 * 24}
+              height={16 * 24}
+              ref={canvasRef}
+              onClick={() => handleMouseDown()}
+              onMouseDown={() => dragPixel()}
+            />
+            <img
+              className="checkered-background"
+              src="checkeredBackground.png"
+              width={16 * 24}
+              height={16 * 24}
+            />
+            <canvas width={16 * 24} height={16 * 24} />
+          </div>
+
+          <div className="frames-header">
+            <div className="frames-heading">
+              <h3>CHOOSE FRAME</h3>
+              <button onClick={() => addBlankFrame()} className="btn add-btn">
+                +
               </button>
             </div>
+            <hr />
+          </div>
+
+          <div className="frames-container">
+            <ul>
+              {Array.isArray(framesArray) &&
+                framesArray.map((frame, index) => {
+                  return (
+                    <li key={index} className="frame-item">
+                      <button
+                        className="frame-name frame-btn"
+                        onClick={() => getCanvas(frame)}
+                      >
+                        Frame {frame}
+                      </button>
+                      <button
+                        className="frame-btn frame-btn-delete"
+                        onClick={() => deleteFrame(frame)}
+                      >
+                        DELETE
+                      </button>
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
+        </div>
+        <div className="buttons-container">
+          <button onClick={resetCanvas} className="btn">
+            Reset Canvas
+          </button>
+
+          <button onClick={() => addFrame(currentFrame)} className="btn">
+            Duplicate Frame
+          </button>
+
+          <button
+            onClick={() => animate(framesArray, getCanvas, fps, currentFrame)}
+            className="btn animate-btn"
+          >
+            Animate!
+          </button>
+
+          <button onClick={newSession} className="btn session-btn">
+            New Session
+          </button>
+
+          <div className="slider-container">
+            <h3 className="slider-header">{fps} FPS</h3>
+            <div>
+              <Slider
+                xmax={10}
+                xmin={1}
+                axis="x"
+                x={fps}
+                onChange={({ x }) => setFps(x)}
+                className="slider-bar"
+              />
+            </div>
+          </div>
+          <div className="pixel-buttons tools">
+            <button
+              onClick={pixelChange}
+              className={`btn ${
+                pixelSelect === 1 ? "pixel-btn pixel-btn-active" : "pixel-btn"
+              }`}
+              value={8}
+            >
+              8px
+            </button>
+            <button
+              onClick={pixelChange}
+              className={`btn ${
+                pixelSelect === 2 ? "pixel-btn pixel-btn-active" : "pixel-btn"
+              }`}
+              value={16}
+            >
+              16px
+            </button>
+            <button
+              onClick={pixelChange}
+              className={`btn ${
+                pixelSelect === 3 ? "pixel-btn pixel-btn-active" : "pixel-btn"
+              }`}
+              value={24}
+            >
+              24px
+            </button>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default Canvas;
