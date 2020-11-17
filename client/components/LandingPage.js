@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Login, Signup } from "./auth-form";
-import history from "../history";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Login, Signup } from './auth-form';
+import history from '../history';
 
 const LandingPage = ({ isLoggedIn, user, name }) => {
-  const [display, setDisplay] = useState("login");
+  const [display, setDisplay] = useState('login');
 
   useEffect(() => {
-    setDisplay("login");
+    setDisplay('login');
   }, []);
 
-  let chars = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
-  let hash = "";
+  let chars = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+  let hash = '';
   for (let j = 0; j < 6; j++) {
     hash += chars[Math.floor(Math.random() * 62)];
   }
 
-  console.log("DISPLAY ------", display);
-  console.log("logged in? --------", isLoggedIn);
+  console.log('DISPLAY ------', display);
+  console.log('logged in? --------', isLoggedIn);
 
   return (
     <div className="container">
@@ -43,7 +43,7 @@ const LandingPage = ({ isLoggedIn, user, name }) => {
             <button
               type="button"
               className="btn landing-btn"
-              onClick={() => setDisplay("login")}
+              onClick={() => setDisplay('login')}
             >
               Log Out
             </button>
@@ -53,18 +53,18 @@ const LandingPage = ({ isLoggedIn, user, name }) => {
             <button
               type="button"
               className="btn landing-btn"
-              onClick={() => setDisplay("login")}
+              onClick={() => setDisplay('login')}
             >
               Login
             </button>
             <button
               type="button"
               className="btn landing-btn"
-              onClick={() => setDisplay("signUp")}
+              onClick={() => setDisplay('signUp')}
             >
               Sign Up
             </button>
-            {display === "login" ? <Login /> : <Signup />}
+            {display === 'login' ? <Login /> : <Signup />}
           </div>
         )}
       </div>
