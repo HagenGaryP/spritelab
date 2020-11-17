@@ -106,30 +106,6 @@ const Canvas = (props) => {
     }
     initialFrames = initialFrames.sort((a, b) => a - b);
     setFramesArray(framesArray.concat(initialFrames));
-    // if (initialFrames[0]) {
-    //   let frameObj = JSON.parse(localStorage.getItem(initialFrames[0]));
-    // console.log('frame = ', frameObj);
-    // for (let row in frameObj) {
-    // console.log('frameObj row =  ', Array.isArray(frameObj[row]));
-    // for (let i = 0; i < 48; i++) {
-    //   let elem = frameObj[row][i];
-    //   if (!initialColors.includes(elem) && elem) {
-    //     console.log('color = ', elem);
-    //     initialColors.push(elem);
-    //   }
-    // }
-    // initialColors = row.filter(c => (!colorsUsed.includes(c) && c))
-
-    // val = JSON.parse(val);
-    // for (let elem in val) {
-    //   initialColors = elem.filter(c => (!colorsUsed.includes(c) && c))
-    //   console.log('elem = ', elem);
-    // }
-    //   }
-    // // }
-    // setColorsUsed(initialColors);
-
-    // console.log('initialColors >>>> ', initialColors);
   }
 
   // --------- DELETE FRAMES --------- //
@@ -249,13 +225,7 @@ const Canvas = (props) => {
   }
 
   // --------- FILL PIXEL --------- //
-  function fillPixel(
-    defaultX,
-    defaultY
-    // color = color,
-    // pixelSize = pixelSize,
-    // factor = factor
-  ) {
+  function fillPixel(defaultX, defaultY) {
     //need to add a color value to the parameters
     const canvasRect = canvas.getBoundingClientRect();
 
@@ -290,7 +260,6 @@ const Canvas = (props) => {
 
   // --------- MOUSE DOWN FOR DRAG--------- //
   function handleMouseDown() {
-    // setColorsUsed([...colorsUsed, color]);
     if (tool) {
       fillPixel();
     } else {
@@ -375,25 +344,6 @@ const Canvas = (props) => {
               Erase
             </button>
           </div>
-          {/* <div>
-            COLORS USED
-            {initialColors.length > 0 && !colorsUsed.length > 0
-              ? initialColors.map((colorString, index) => {
-                  <li key={index}>
-                    <button onClick={() => setColor(colorString)}>
-                      {(colorString, index)}
-                    </button>
-                  </li>;
-                })
-              : Array.isArray(colorsUsed) &&
-                colorsUsed.map((colorString, index) => {
-                  <li key={index}>
-                    <button onClick={() => setColor(colorString)}>
-                      {colorString}
-                    </button>
-                  </li>;
-                })}
-          </div> */}
         </div>
         <div className="canvas-container">
           <h3>FRAME {currentFrame}</h3>
