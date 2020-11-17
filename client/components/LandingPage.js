@@ -10,7 +10,7 @@ const LandingPage = ({ isLoggedIn, user, name }) => {
 
   useEffect(() => {
     setDisplay("login");
-  }, []);
+  }, [display]);
 
   let chars = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
   let hash = "";

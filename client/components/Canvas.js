@@ -110,16 +110,16 @@ const Canvas = (props) => {
     if (initialFrames[0]) {
       let frameObj = JSON.parse(localStorage.getItem(initialFrames[0]));
       console.log("frame = ", frameObj);
-      for (let row in frameObj) {
-        // console.log('frameObj row =  ', Array.isArray(frameObj[row]));
-        for (let i = 0; i < 48; i++) {
-          let elem = frameObj[row][i];
-          if (!initialColors.includes(elem) && elem) {
-            console.log("color = ", elem);
-            initialColors.push(elem);
-          }
-        }
-      }
+      //   for (let row in frameObj) {
+      //     // console.log('frameObj row =  ', Array.isArray(frameObj[row]));
+      //   //   for (let i = 0; i < 48; i++) {
+      //   //     let elem = frameObj[row][i];
+      //   //     if (!initialColors.includes(elem) && elem) {
+      //   //       console.log("color = ", elem);
+      //   //       initialColors.push(elem);
+      //   //     }
+      //   //   }
+      //   // }
     }
   }
 
