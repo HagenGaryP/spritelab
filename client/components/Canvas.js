@@ -6,11 +6,11 @@
 /* eslint-disable complexity */
 /* eslint-disable react/button-has-type */
 /* eslint-disable max-statements */
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from 'react';
 // import socket from '../socket.js';
-import Slider from "react-input-slider";
-import { SketchPicker } from "react-color";
-import { animate, createGrid, renderSaved } from "../utility";
+import Slider from 'react-input-slider';
+import { SketchPicker } from 'react-color';
+import { animate, createGrid, renderSaved } from '../utility';
 
 let initialFrames = [];
 // let initialColors = [];
@@ -23,9 +23,9 @@ const Canvas = (props) => {
   const [framesArray, setFramesArray] = useState([]);
   const [mappedGrid, setMappedGrid] = useState({});
   const [frameCounter, setFrameCounter] = useState(initialFrames.length + 1);
-  const [currentFrame, setCurrentFrame] = useState("1");
+  const [currentFrame, setCurrentFrame] = useState('1');
   const [fps, setFps] = useState(5);
-  const [color, setColor] = useState("#000000");
+  const [color, setColor] = useState('#000000');
   const [tool, setTool] = useState(true);
   const [showInstructions, setShowInstructions] = useState(false);
   // const [colorsUsed, setColorsUsed] = useState([]);
@@ -35,7 +35,7 @@ const Canvas = (props) => {
   useEffect(() => {
     canvas = canvasRef.current;
     getFrames();
-    ctx = canvas.getContext("2d");
+    ctx = canvas.getContext('2d');
 
     createGrid(ctx, pixelSize, mappedGrid);
 
@@ -65,7 +65,7 @@ const Canvas = (props) => {
 
   useEffect(() => {
     canvas = canvasRef.current;
-    ctx = canvas.getContext("2d");
+    ctx = canvas.getContext('2d');
   }, [
     color,
     mappedGrid,
@@ -97,8 +97,8 @@ const Canvas = (props) => {
   function getFrames() {
     for (let key in localStorage) {
       if (
-        key !== "currentColor" &&
-        typeof localStorage[key] === "string" &&
+        key !== 'currentColor' &&
+        typeof localStorage[key] === 'string' &&
         !initialFrames.includes(key)
       ) {
         initialFrames.push(key);
@@ -109,17 +109,6 @@ const Canvas = (props) => {
 
     if (initialFrames[0]) {
       let frameObj = JSON.parse(localStorage.getItem(initialFrames[0]));
-      console.log("frame = ", frameObj);
-      for (let row in frameObj) {
-        // console.log('frameObj row =  ', Array.isArray(frameObj[row]));
-        for (let i = 0; i < 48; i++) {
-          let elem = frameObj[row][i];
-          if (!initialColors.includes(elem) && elem) {
-            console.log("color = ", elem);
-            initialColors.push(elem);
-          }
-        }
-      }
     }
   }
 
@@ -192,10 +181,10 @@ const Canvas = (props) => {
     localStorage.clear();
 
     setFrameCounter(1);
-    setFramesArray(["1"]);
+    setFramesArray(['1']);
     initialFrames = [];
     localStorage.setItem(`1`, JSON.stringify(mappedGrid));
-    setCurrentFrame("1");
+    setCurrentFrame('1');
   }
 
   // --------- GET CANVAS--------- //
@@ -284,9 +273,9 @@ const Canvas = (props) => {
 
   // --------- CONTINUOUS DRAG PIXEL --------- //
   function dragPixel() {
-    canvas.addEventListener("mousemove", handleMouseDown, true);
-    window.addEventListener("mouseup", (secondEvent) => {
-      canvas.removeEventListener("mousemove", handleMouseDown, true);
+    canvas.addEventListener('mousemove', handleMouseDown, true);
+    window.addEventListener('mouseup', (secondEvent) => {
+      canvas.removeEventListener('mousemove', handleMouseDown, true);
     });
   }
 
@@ -315,7 +304,7 @@ const Canvas = (props) => {
         </button>
         <div
           className={`${
-            showInstructions ? "instructions show" : "instructions"
+            showInstructions ? 'instructions show' : 'instructions'
           }`}
         >
           <h3>Welcome!</h3>
@@ -345,7 +334,7 @@ const Canvas = (props) => {
             <button
               onClick={toggleTool}
               className={`btn ${
-                tool ? "tool-btn tool-btn-active" : "tool-btn"
+                tool ? 'tool-btn tool-btn-active' : 'tool-btn'
               }`}
             >
               Draw
@@ -353,7 +342,7 @@ const Canvas = (props) => {
             <button
               onClick={toggleTool}
               className={`btn ${
-                tool ? "tool-btn" : "tool-btn tool-btn-active"
+                tool ? 'tool-btn' : 'tool-btn tool-btn-active'
               }`}
             >
               Erase
@@ -452,7 +441,7 @@ const Canvas = (props) => {
             <button
               onClick={pixelChange}
               className={`btn ${
-                pixelSelect === 1 ? "pixel-btn pixel-btn-active" : "pixel-btn"
+                pixelSelect === 1 ? 'pixel-btn pixel-btn-active' : 'pixel-btn'
               }`}
               value={8}
             >
@@ -461,7 +450,7 @@ const Canvas = (props) => {
             <button
               onClick={pixelChange}
               className={`btn ${
-                pixelSelect === 2 ? "pixel-btn pixel-btn-active" : "pixel-btn"
+                pixelSelect === 2 ? 'pixel-btn pixel-btn-active' : 'pixel-btn'
               }`}
               value={16}
             >
@@ -470,7 +459,7 @@ const Canvas = (props) => {
             <button
               onClick={pixelChange}
               className={`btn ${
-                pixelSelect === 3 ? "pixel-btn pixel-btn-active" : "pixel-btn"
+                pixelSelect === 3 ? 'pixel-btn pixel-btn-active' : 'pixel-btn'
               }`}
               value={24}
             >
