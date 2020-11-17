@@ -13,7 +13,7 @@ import { SketchPicker } from "react-color";
 import { animate, createGrid, renderSaved } from "../utility";
 
 let initialFrames = [];
-let initialColors = [];
+// let initialColors = [];
 let canvas, ctx;
 
 const Canvas = (props) => {
@@ -28,7 +28,7 @@ const Canvas = (props) => {
   const [color, setColor] = useState("#000000");
   const [tool, setTool] = useState(true);
   const [showInstructions, setShowInstructions] = useState(false);
-  const [colorsUsed, setColorsUsed] = useState([]);
+  // const [colorsUsed, setColorsUsed] = useState([]);
 
   const canvasRef = useRef();
 
@@ -58,11 +58,9 @@ const Canvas = (props) => {
       addBlankFrame();
     }
 
-    // setColorsUsed(initialColors);
     setFramesArray(initialFrames);
     setCurrentFrame(`${frameCounter}`);
     getCanvas(currentFrame);
-    console.log("colorsUsed", colorsUsed);
   }, []);
 
   useEffect(() => {
@@ -76,7 +74,6 @@ const Canvas = (props) => {
     framesArray,
     pixelSize,
     factor,
-    colorsUsed,
   ]);
 
   function handleChangeComplete(newColor) {
@@ -109,6 +106,7 @@ const Canvas = (props) => {
     }
     initialFrames = initialFrames.sort((a, b) => a - b);
     setFramesArray(framesArray.concat(initialFrames));
+
     if (initialFrames[0]) {
       let frameObj = JSON.parse(localStorage.getItem(initialFrames[0]));
       console.log("frame = ", frameObj);
@@ -121,18 +119,8 @@ const Canvas = (props) => {
             initialColors.push(elem);
           }
         }
-        // initialColors = row.filter(c => (!colorsUsed.includes(c) && c))
-
-        // val = JSON.parse(val);
-        // for (let elem in val) {
-        //   initialColors = elem.filter(c => (!colorsUsed.includes(c) && c))
-        //   console.log('elem = ', elem);
-        // }
       }
     }
-    setColorsUsed(initialColors);
-
-    console.log("initialColors >>>> ", initialColors);
   }
 
   // --------- DELETE FRAMES --------- //
@@ -252,13 +240,7 @@ const Canvas = (props) => {
   }
 
   // --------- FILL PIXEL --------- //
-  function fillPixel(
-    defaultX,
-    defaultY
-    // color = color,
-    // pixelSize = pixelSize,
-    // factor = factor
-  ) {
+  function fillPixel(defaultX, defaultY) {
     //need to add a color value to the parameters
     const canvasRect = canvas.getBoundingClientRect();
 
@@ -267,11 +249,13 @@ const Canvas = (props) => {
       defaultX ?? Math.floor((window.event.clientX - canvasRect.x) / pixelSize);
     let y =
       defaultY ?? Math.floor((window.event.clientY - canvasRect.y) / pixelSize);
-    setColorsUsed([...colorsUsed, color]);
+    // setColorsUsed([...colorsUsed, color]);
     // MAP color to proper place on mappedGrid
     for (let i = 0; i < factor; i++) {
       for (let j = 0; j < factor; j++) {
-        mappedGrid[y * factor + i][x * factor + j] = color;
+        if (y * factor + i >= 0 && x * factor + j >= 0) {
+          mappedGrid[y * factor + i][x * factor + j] = color;
+        }
       }
     }
     // if (defaultX === undefined && defaultY === undefined) {
@@ -291,7 +275,6 @@ const Canvas = (props) => {
 
   // --------- MOUSE DOWN FOR DRAG--------- //
   function handleMouseDown() {
-    setColorsUsed([...colorsUsed, color]);
     if (tool) {
       fillPixel();
     } else {
@@ -375,25 +358,6 @@ const Canvas = (props) => {
             >
               Erase
             </button>
-          </div>
-          <div>
-            COLORS USED
-            {initialColors.length > 0 && !colorsUsed.length > 0
-              ? initialColors.map((colorString, index) => {
-                  <li key={index}>
-                    <button onClick={() => setColor(colorString)}>
-                      {(colorString, index)}
-                    </button>
-                  </li>;
-                })
-              : Array.isArray(colorsUsed) &&
-                colorsUsed.map((colorString, index) => {
-                  <li key={index}>
-                    <button onClick={() => setColor(colorString)}>
-                      {colorString}
-                    </button>
-                  </li>;
-                })}
           </div>
         </div>
         <div className="canvas-container">
@@ -513,6 +477,16 @@ const Canvas = (props) => {
               24px
             </button>
           </div>
+          <button
+            onClick={() =>
+              localStorage.setItem(
+                `${currentFrame}`,
+                JSON.stringify(mappedGrid)
+              )
+            }
+          >
+            SAVE CURRENT FRAME
+          </button>
         </div>
       </div>
     </div>
