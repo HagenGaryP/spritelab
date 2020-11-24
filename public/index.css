@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
 * {
   box-sizing: border-box;
@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 a {
@@ -56,7 +56,7 @@ button {
   background: #fff;
   color: #4a90e2;
   border-radius: 5px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   text-transform: uppercase;
   font-size: 0.8rem;
 }
@@ -144,7 +144,7 @@ button {
   background: none;
   transition: all 0.5s;
   border: 2px solid transparent;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   text-transform: uppercase;
   margin-bottom: 0.6rem;
   padding: 0.4rem 0;
@@ -231,6 +231,11 @@ form div {
 
 .canvas-container h3 {
   margin-bottom: 0.5rem;
+}
+
+.divider {
+  display: inline;
+  padding-left: 0.5rem;
 }
 
 /* BUTTONS CONTAINER */

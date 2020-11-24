@@ -1,7 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { auth } from '../store';
+import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { auth } from "../store";
 
 /**
  * COMPONENT
@@ -12,7 +12,7 @@ const AuthForm = (props) => {
   return (
     <div className="content">
       <form onSubmit={handleSubmit} name={name}>
-        {name === 'signup' ? (
+        {name === "signup" ? (
           <div>
             <label htmlFor="firstName">
               <small>First Name</small>
@@ -20,9 +20,9 @@ const AuthForm = (props) => {
             <input name="firstName" type="text" />
           </div>
         ) : (
-          ''
+          ""
         )}
-        {name === 'signup' ? (
+        {name === "signup" ? (
           <div>
             <label htmlFor="lastName">
               <small>Last Name</small>
@@ -30,7 +30,7 @@ const AuthForm = (props) => {
             <input name="lastName" type="text" />
           </div>
         ) : (
-          ''
+          ""
         )}
         <div>
           <label htmlFor="email">
@@ -63,16 +63,16 @@ const AuthForm = (props) => {
  */
 const mapLogin = (state) => {
   return {
-    name: 'login',
-    displayName: 'Login',
+    name: "login",
+    displayName: "Login",
     error: state.user.error,
   };
 };
 
 const mapSignup = (state) => {
   return {
-    name: 'signup',
-    displayName: 'Sign Up',
+    name: "signup",
+    displayName: "Sign Up",
     error: state.user.error,
   };
 };

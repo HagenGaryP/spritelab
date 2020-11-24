@@ -1,25 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { Login, Signup } from './auth-form';
-import history from '../history';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Login, Signup } from "./auth-form";
+import { logout } from "../store";
 
-const LandingPage = ({ isLoggedIn, user, name }) => {
-  const [display, setDisplay] = useState('login');
+const LandingPage = ({ isLoggedIn, name, handleClick }) => {
+  const [display, setDisplay] = useState("login");
 
   useEffect(() => {
-    setDisplay('login');
+    setDisplay("login");
   }, []);
 
-  let chars = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
-  let hash = '';
+  let chars = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+  let hash = "";
   for (let j = 0; j < 6; j++) {
     hash += chars[Math.floor(Math.random() * 62)];
   }
-
-  console.log('DISPLAY ------', display);
-  console.log('logged in? --------', isLoggedIn);
 
   return (
     <div className="container">
@@ -34,39 +31,44 @@ const LandingPage = ({ isLoggedIn, user, name }) => {
             <br />
             for creating animated sprites and pixel art
           </p>
+
+          {isLoggedIn ? (
+            <div className="divider">
+              <Link className="btn landing-btn" to={`/${hash}`}>
+                Create Sprite
+              </Link>
+              <div className="divider">
+                <button
+                  type="button"
+                  className="btn landing-btn"
+                  onClick={() => handleClick()}
+                >
+                  Log Out
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <button
+                type="button"
+                className="btn landing-btn"
+                onClick={() => setDisplay("login")}
+              >
+                Login
+              </button>
+              <div className="divider">
+                <button
+                  type="button"
+                  className="btn landing-btn"
+                  onClick={() => setDisplay("signUp")}
+                >
+                  Sign Up
+                </button>
+                {display === "login" ? <Login /> : <Signup />}
+              </div>
+            </div>
+          )}
         </div>
-        {isLoggedIn ? (
-          <div>
-            <Link className="btn landing-btn" to={`/${hash}`}>
-              Create Sprite
-            </Link>
-            <button
-              type="button"
-              className="btn landing-btn"
-              onClick={() => setDisplay('login')}
-            >
-              Log Out
-            </button>
-          </div>
-        ) : (
-          <div>
-            <button
-              type="button"
-              className="btn landing-btn"
-              onClick={() => setDisplay('login')}
-            >
-              Login
-            </button>
-            <button
-              type="button"
-              className="btn landing-btn"
-              onClick={() => setDisplay('signUp')}
-            >
-              Sign Up
-            </button>
-            {display === 'login' ? <Login /> : <Signup />}
-          </div>
-        )}
       </div>
     </div>
   );
@@ -81,46 +83,20 @@ const mapState = (state) => {
   };
 };
 
-export default connect(mapState)(LandingPage);
-
-// ---------  PROP TYPES --------- //
-LandingPage.propTypes = {
-  // handleClick: PropTypes.func.isRequired, this is for logging out, not working yet
-  isLoggedIn: PropTypes.bool.isRequired,
+const mapDispatch = (dispatch) => {
+  return {
+    handleClick() {
+      dispatch(logout());
+    },
+  };
 };
 
-// import React, { useState } from 'react';
+export default connect(mapState, mapDispatch)(LandingPage);
 
-// function Example() {
-//   // Declare a new state variable, which we'll call "count"
-//   const [count, setCount] = useState(0);
-
-//   return (
-//     <div>
-//       <p>You clicked {count} times</p>
-//       <button onClick={() => setCount(count + 1)}>
-//         Click me
-//       </button>
-//     </div>
-//   );
-// }
-
-// Equivalent Class Example
-// class Example extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       count: 0
-//     };
-//   }
-//   render() {
-//     return (
-//       <div>
-//         <p>You clicked {this.state.count} times</p>
-//         <button onClick={() => this.setState({ count: this.state.count + 1 })}>
-//           Click me
-//         </button>
-//       </div>
-//     );
-//   }
-// }
+/**
+ * PROP TYPES
+ */
+LandingPage.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+};
