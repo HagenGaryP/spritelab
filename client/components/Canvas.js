@@ -7,16 +7,17 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable max-statements */
 import React, { useEffect, useState, useRef } from "react";
-// import socket from '../socket.js';
 import Slider from "react-input-slider";
 import { SketchPicker } from "react-color";
 import { animate, createGrid, renderSaved } from "../utility";
+import { connect } from "react-redux";
+import { createSession } from "../store";
 
 let initialFrames = [];
 // let initialColors = [];
 let canvas, ctx;
 
-const Canvas = (props) => {
+const Canvas = ({ user, createSess }) => {
   const [pixelSize, setPixelSize] = useState(8);
   const [pixelSelect, setPixelSelect] = useState(1);
   const [factor, setFactor] = useState(1);
@@ -61,6 +62,7 @@ const Canvas = (props) => {
     setFramesArray(initialFrames);
     setCurrentFrame(`${frameCounter}`);
     getCanvas(currentFrame);
+    console.log("USER", user);
   }, []);
 
   useEffect(() => {
@@ -110,6 +112,18 @@ const Canvas = (props) => {
     if (initialFrames[0]) {
       let frameObj = JSON.parse(localStorage.getItem(initialFrames[0]));
       console.log("frame = ", frameObj);
+
+      let frameArr = Object.values(frameObj);
+      console.log("frame array --->", typeof frameArr);
+
+      let session = {
+        name,
+        canvas: frameArr,
+        userId: user,
+      };
+
+      createSess(session);
+
       //   for (let row in frameObj) {
       //     // console.log('frameObj row =  ', Array.isArray(frameObj[row]));
       //   //   for (let i = 0; i < 48; i++) {
@@ -492,5 +506,12 @@ const Canvas = (props) => {
     </div>
   );
 };
+const mapState = (state) => ({
+  user: state.user.id,
+});
 
-export default Canvas;
+const mapDispatch = (dispatch) => ({
+  createSess: (session) => dispatch(createSession(session)),
+});
+
+export default connect(mapState, mapDispatch)(Canvas);

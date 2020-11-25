@@ -1,19 +1,26 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const Sequelize = require("sequelize");
+const db = require("../db");
 
-const Session = db.define('session', {
+const Session = db.define("session", {
   name: {
     type: Sequelize.STRING,
-    allowNull: false,
+    defaultValue: "canvas",
+    // allowNull: false,
+    // validate: {
+    //   notEmpty: true,
+    // },
+  },
+  canvas: {
+    type: Sequelize.JSONB,
     validate: {
-      notEmpty: true,
+      isValidFormat(value) {
+        for (let i = 0; i < value.length; i++) {
+          if (!Array.isArray(value[i])) {
+            throw new Error("Bad Value");
+          }
+        }
+      },
     },
-  },
-  frames: {
-    type: Sequelize.ARRAY(Sequelize.JSON),
-  },
-  users: {
-    type: Sequelize.ARRAY(Sequelize.JSON),
   },
 });
 
