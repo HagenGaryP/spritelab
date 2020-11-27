@@ -1,12 +1,12 @@
-import axios from "axios";
-import history from "../history";
+import axios from 'axios';
+import history from '../history';
 
 /**
  * ACTION TYPES
  */
-const GET_USER = "GET_USER";
+const GET_USER = 'GET_USER';
 
-const REMOVE_USER = "REMOVE_USER";
+const REMOVE_USER = 'REMOVE_USER';
 
 /**
  * ACTION CREATORS
@@ -25,7 +25,7 @@ const defaultUser = {};
  */
 export const me = () => async (dispatch) => {
   try {
-    const res = await axios.get("/auth/me");
+    const res = await axios.get('/auth/me');
     dispatch(getUser(res.data || defaultUser));
   } catch (err) {
     console.error(err);
@@ -48,7 +48,7 @@ export const auth = (email, password, method, firstName, lastName) => async (
 
   try {
     dispatch(getUser(res.data));
-    history.push("/");
+    history.push('/');
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr);
   }
@@ -56,9 +56,9 @@ export const auth = (email, password, method, firstName, lastName) => async (
 
 export const logout = () => async (dispatch) => {
   try {
-    await axios.post("/auth/logout");
+    await axios.post('/auth/logout');
     dispatch(removeUser());
-    history.push("/");
+    history.push('/');
   } catch (err) {
     console.error(err);
   }

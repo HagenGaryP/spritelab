@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios';
 
 //----ACTION TYPES----/
-const GET_SESS = "GET_SESS";
-const CREATE_SESS = "CREATE_SESS";
-const UPDATE_SESS = "UPDATE_SESS";
+const GET_SESS = 'GET_SESS';
+const CREATE_SESS = 'CREATE_SESS';
+const UPDATE_SESS = 'UPDATE_SESS';
 
 //----ACTION CREATORS----/
 const getSess = (session) => ({ type: GET_SESS, session });
@@ -13,17 +13,20 @@ const updateSess = (sessionId) => ({ type: UPDATE_SESS, sessionId });
 //----THUNK CREATORS----/
 export const getSession = () => async (dispatch) => {
   try {
-    const { data } = await axios.get("/api/session");
+    const { data } = await axios.get('/api/session');
     dispatch(getSess(data));
   } catch (error) {
     console.error(error);
   }
 };
 
-export const createSession = (canvas) => async (dispact) => {
+export const createSession = (canvas) => async (dispatch) => {
+  console.log('create session thunk >>>  canvas = ', canvas);
   try {
-    const { data } = await axios.post("api/session/new", canvas);
-    dispact(createSess(data));
+    let response = await axios.post('api/session/new', canvas);
+    console.log('response = ', response);
+    const { data } = response;
+    dispatch(createSess(data));
   } catch (error) {
     console.error(error);
   }

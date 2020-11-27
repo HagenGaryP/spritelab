@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Login, Signup } from "./auth-form";
-import { logout } from "../store";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Login, Signup } from './auth-form';
+import { logout, getSession, auth } from '../store';
 
-const LandingPage = ({ isLoggedIn, name, handleClick }) => {
-  const [display, setDisplay] = useState("login");
+let chars = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+let hash = '';
+for (let j = 0; j < 6; j++) {
+  hash += chars[Math.floor(Math.random() * 62)];
+}
+
+const LandingPage = ({ isLoggedIn, name, handleClick, user, getSession }) => {
+  const [display, setDisplay] = useState('login');
+  const [session, setSession] = useState([]);
 
   useEffect(() => {
-    setDisplay("login");
+    setDisplay('login');
   }, []);
-
-  let chars = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
-  let hash = "";
-  for (let j = 0; j < 6; j++) {
-    hash += chars[Math.floor(Math.random() * 62)];
-  }
 
   return (
     <div className="container">
@@ -46,13 +47,19 @@ const LandingPage = ({ isLoggedIn, name, handleClick }) => {
                   Log Out
                 </button>
               </div>
+              <div className="session-container">
+                <h2>Sessions</h2>
+              </div>
             </div>
           ) : (
             <div>
               <button
                 type="button"
                 className="btn landing-btn"
-                onClick={() => setDisplay("login")}
+                onClick={() => {
+                  setDisplay('login');
+                  handleClick();
+                }}
               >
                 Login
               </button>
@@ -60,11 +67,11 @@ const LandingPage = ({ isLoggedIn, name, handleClick }) => {
                 <button
                   type="button"
                   className="btn landing-btn"
-                  onClick={() => setDisplay("signUp")}
+                  onClick={() => setDisplay('signUp')}
                 >
                   Sign Up
                 </button>
-                {display === "login" ? <Login /> : <Signup />}
+                {display === 'login' ? <Login user={user} /> : <Signup />}
               </div>
             </div>
           )}
@@ -88,6 +95,7 @@ const mapDispatch = (dispatch) => {
     handleClick() {
       dispatch(logout());
     },
+    getSession: () => dispatch(getSession()),
   };
 };
 

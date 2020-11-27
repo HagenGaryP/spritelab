@@ -4,7 +4,11 @@ const Instructions = (props) => {
   return (
     <div>
       <nav className="nav container">
-        <button onClick={props.toggleInstructions} className="btn instruct-btn">
+        <button
+          className="btn instruct-btn"
+          type="button"
+          onClick={props.toggleInstructions}
+        >
           Instructions
         </button>
         <div
@@ -28,8 +32,9 @@ const Instructions = (props) => {
             Frames List below the canvas.
           </p>
           <button
-            onClick={props.toggleInstructions}
             className="btn close-instruct-btn"
+            type="button"
+            onClick={props.toggleInstructions}
           >
             Close
           </button>

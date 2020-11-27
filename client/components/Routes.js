@@ -1,12 +1,12 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 // import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom';
-import { connect } from "react-redux";
-import { withRouter, Route, Switch } from "react-router-dom";
-import PropTypes from "prop-types";
-import LandingPage from "./LandingPage";
-import Canvas from "./Canvas";
-import { me } from "../store";
-import { Login, Signup } from "./auth-form";
+import { connect } from 'react-redux';
+import { withRouter, Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import LandingPage from './LandingPage';
+import Canvas from './Canvas';
+import { me } from '../store';
+import { Login, Signup } from './auth-form';
 
 class Routes extends Component {
   componentDidMount() {
@@ -14,12 +14,19 @@ class Routes extends Component {
   }
 
   render() {
+    const { isLoggedIn, user } = this.props;
     return (
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/:hash" component={Canvas} />
+        {isLoggedIn && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/:userId" component={LandingPage} />
+          </Switch>
+        )}
       </Switch>
     );
   }
