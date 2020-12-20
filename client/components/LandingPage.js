@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { Login, Signup } from "./auth-form";
-import { logout } from "../store";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Login, Signup } from './auth-form';
+import { logout } from '../store';
 
 const LandingPage = ({ isLoggedIn, name, handleClick }) => {
-  const [display, setDisplay] = useState("login");
+  const [display, setDisplay] = useState('login');
 
   useEffect(() => {
-    setDisplay("login");
+    setDisplay('login');
   }, []);
 
-  let chars = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
-  let hash = "";
+  let chars = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+  let hash = '';
   for (let j = 0; j < 6; j++) {
     hash += chars[Math.floor(Math.random() * 62)];
   }
@@ -52,7 +52,7 @@ const LandingPage = ({ isLoggedIn, name, handleClick }) => {
               <button
                 type="button"
                 className="btn landing-btn"
-                onClick={() => setDisplay("login")}
+                onClick={() => setDisplay('login')}
               >
                 Login
               </button>
@@ -60,11 +60,11 @@ const LandingPage = ({ isLoggedIn, name, handleClick }) => {
                 <button
                   type="button"
                   className="btn landing-btn"
-                  onClick={() => setDisplay("signUp")}
+                  onClick={() => setDisplay('signUp')}
                 >
                   Sign Up
                 </button>
-                {display === "login" ? <Login /> : <Signup />}
+                {display === 'login' ? <Login /> : <Signup />}
               </div>
             </div>
           )}

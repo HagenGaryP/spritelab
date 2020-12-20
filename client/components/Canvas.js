@@ -6,12 +6,12 @@
 /* eslint-disable complexity */
 /* eslint-disable react/button-has-type */
 /* eslint-disable max-statements */
-import React, { useEffect, useState, useRef } from "react";
-import Slider from "react-input-slider";
-import { SketchPicker } from "react-color";
-import { animate, createGrid, renderSaved } from "../utility";
-import { connect } from "react-redux";
-import { createSession } from "../store";
+import React, { useEffect, useState, useRef } from 'react';
+import Slider from 'react-input-slider';
+import { SketchPicker } from 'react-color';
+import { animate, createGrid, renderSaved } from '../utility';
+import { connect } from 'react-redux';
+import { createSession } from '../store';
 
 let initialFrames = [];
 // let initialColors = [];
@@ -24,9 +24,9 @@ const Canvas = ({ user, createSess }) => {
   const [framesArray, setFramesArray] = useState([]);
   const [mappedGrid, setMappedGrid] = useState({});
   const [frameCounter, setFrameCounter] = useState(initialFrames.length + 1);
-  const [currentFrame, setCurrentFrame] = useState("1");
+  const [currentFrame, setCurrentFrame] = useState('1');
   const [fps, setFps] = useState(5);
-  const [color, setColor] = useState("#000000");
+  const [color, setColor] = useState('#000000');
   const [tool, setTool] = useState(true);
   const [showInstructions, setShowInstructions] = useState(false);
   // const [colorsUsed, setColorsUsed] = useState([]);
@@ -36,7 +36,7 @@ const Canvas = ({ user, createSess }) => {
   useEffect(() => {
     canvas = canvasRef.current;
     getFrames();
-    ctx = canvas.getContext("2d");
+    ctx = canvas.getContext('2d');
 
     createGrid(ctx, pixelSize, mappedGrid);
 
@@ -62,12 +62,12 @@ const Canvas = ({ user, createSess }) => {
     setFramesArray(initialFrames);
     setCurrentFrame(`${frameCounter}`);
     getCanvas(currentFrame);
-    console.log("USER", user);
+    console.log('USER', user);
   }, []);
 
   useEffect(() => {
     canvas = canvasRef.current;
-    ctx = canvas.getContext("2d");
+    ctx = canvas.getContext('2d');
   }, [
     color,
     mappedGrid,
@@ -99,8 +99,8 @@ const Canvas = ({ user, createSess }) => {
   function getFrames() {
     for (let key in localStorage) {
       if (
-        key !== "currentColor" &&
-        typeof localStorage[key] === "string" &&
+        key !== 'currentColor' &&
+        typeof localStorage[key] === 'string' &&
         !initialFrames.includes(key)
       ) {
         initialFrames.push(key);
@@ -109,32 +109,29 @@ const Canvas = ({ user, createSess }) => {
     initialFrames = initialFrames.sort((a, b) => a - b);
     setFramesArray(framesArray.concat(initialFrames));
 
-    if (initialFrames[0]) {
-      let frameObj = JSON.parse(localStorage.getItem(initialFrames[0]));
-      console.log("frame = ", frameObj);
+    let frameObj = JSON.parse(localStorage.getItem(initialFrames[0]));
+    console.log('frame = ', frameObj);
 
-      let frameArr = Object.values(frameObj);
-      console.log("frame array --->", typeof frameArr);
+    let frameArr = Object.values(frameObj);
+    console.log('frame array --->', typeof frameArr);
 
-      let session = {
-        name,
-        canvas: frameArr,
-        userId: user,
-      };
+    let session = {
+      canvas: frameArr,
+      userId: user,
+    };
 
-      createSess(session);
+    createSess(session);
 
-      //   for (let row in frameObj) {
-      //     // console.log('frameObj row =  ', Array.isArray(frameObj[row]));
-      //   //   for (let i = 0; i < 48; i++) {
-      //   //     let elem = frameObj[row][i];
-      //   //     if (!initialColors.includes(elem) && elem) {
-      //   //       console.log("color = ", elem);
-      //   //       initialColors.push(elem);
-      //   //     }
-      //   //   }
-      //   // }
-    }
+    //   for (let row in frameObj) {
+    //     // console.log('frameObj row =  ', Array.isArray(frameObj[row]));
+    //   //   for (let i = 0; i < 48; i++) {
+    //   //     let elem = frameObj[row][i];
+    //   //     if (!initialColors.includes(elem) && elem) {
+    //   //       console.log("color = ", elem);
+    //   //       initialColors.push(elem);
+    //   //     }
+    //   //   }
+    //   // }
   }
 
   // --------- DELETE FRAMES --------- //
@@ -206,10 +203,10 @@ const Canvas = ({ user, createSess }) => {
     localStorage.clear();
 
     setFrameCounter(1);
-    setFramesArray(["1"]);
+    setFramesArray(['1']);
     initialFrames = [];
     localStorage.setItem(`1`, JSON.stringify(mappedGrid));
-    setCurrentFrame("1");
+    setCurrentFrame('1');
   }
 
   // --------- GET CANVAS--------- //
@@ -298,9 +295,9 @@ const Canvas = ({ user, createSess }) => {
 
   // --------- CONTINUOUS DRAG PIXEL --------- //
   function dragPixel() {
-    canvas.addEventListener("mousemove", handleMouseDown, true);
-    window.addEventListener("mouseup", (secondEvent) => {
-      canvas.removeEventListener("mousemove", handleMouseDown, true);
+    canvas.addEventListener('mousemove', handleMouseDown, true);
+    window.addEventListener('mouseup', (secondEvent) => {
+      canvas.removeEventListener('mousemove', handleMouseDown, true);
     });
   }
 
@@ -329,7 +326,7 @@ const Canvas = ({ user, createSess }) => {
         </button>
         <div
           className={`${
-            showInstructions ? "instructions show" : "instructions"
+            showInstructions ? 'instructions show' : 'instructions'
           }`}
         >
           <h3>Welcome!</h3>
@@ -359,7 +356,7 @@ const Canvas = ({ user, createSess }) => {
             <button
               onClick={toggleTool}
               className={`btn ${
-                tool ? "tool-btn tool-btn-active" : "tool-btn"
+                tool ? 'tool-btn tool-btn-active' : 'tool-btn'
               }`}
             >
               Draw
@@ -367,7 +364,7 @@ const Canvas = ({ user, createSess }) => {
             <button
               onClick={toggleTool}
               className={`btn ${
-                tool ? "tool-btn" : "tool-btn tool-btn-active"
+                tool ? 'tool-btn' : 'tool-btn tool-btn-active'
               }`}
             >
               Erase
@@ -466,7 +463,7 @@ const Canvas = ({ user, createSess }) => {
             <button
               onClick={pixelChange}
               className={`btn ${
-                pixelSelect === 1 ? "pixel-btn pixel-btn-active" : "pixel-btn"
+                pixelSelect === 1 ? 'pixel-btn pixel-btn-active' : 'pixel-btn'
               }`}
               value={8}
             >
@@ -475,7 +472,7 @@ const Canvas = ({ user, createSess }) => {
             <button
               onClick={pixelChange}
               className={`btn ${
-                pixelSelect === 2 ? "pixel-btn pixel-btn-active" : "pixel-btn"
+                pixelSelect === 2 ? 'pixel-btn pixel-btn-active' : 'pixel-btn'
               }`}
               value={16}
             >
@@ -484,7 +481,7 @@ const Canvas = ({ user, createSess }) => {
             <button
               onClick={pixelChange}
               className={`btn ${
-                pixelSelect === 3 ? "pixel-btn pixel-btn-active" : "pixel-btn"
+                pixelSelect === 3 ? 'pixel-btn pixel-btn-active' : 'pixel-btn'
               }`}
               value={24}
             >

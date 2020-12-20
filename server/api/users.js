@@ -1,8 +1,8 @@
-const router = require("express").Router();
-const { User } = require("../db/models");
+const router = require('express').Router();
+const { User } = require('../db/models');
 module.exports = router;
 
-router.get("/", async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
       /* explicitly select only the id and email fields - even though
@@ -16,12 +16,12 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:userId", async (req, res, next) => {
+router.get('/:userId', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId);
     res.json(user);
   } catch (err) {
-    console.log("the error is in the api route");
+    console.log('the error is in the api route');
     next(err);
   }
 });
