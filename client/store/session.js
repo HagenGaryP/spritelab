@@ -20,10 +20,10 @@ export const getSession = () => async (dispatch) => {
   }
 };
 
-export const createSession = (canvas) => async (dispact) => {
+export const createSession = (canvas) => async (dispatch) => {
   try {
     const { data } = await axios.post("api/session/new", canvas);
-    dispact(createSess(data));
+    dispatch(createSess(data));
   } catch (error) {
     console.error(error);
   }
