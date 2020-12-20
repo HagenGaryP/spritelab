@@ -26,12 +26,21 @@ router.post('/new', async (req, res, next) => {
 });
 
 //Save a session
-router.put('/:id', async (req, res, next) => {
+router.put('/:userId', async (req, res, next) => {
+  console.log('put request req body >>>> ', req.body);
   try {
-    const updatedSession = await Session.update(req.body, {
-      where: { id: req.params.id },
-      returning: true,
-    });
+    // const sessionUser = await Session.findOne({
+    //   where: { userId: req.params.userId },
+    // });
+    const [numOfAffected, updatedSession] = await Session.update(
+      {
+        canvas: req.body.canvas,
+      },
+      {
+        where: { userId: req.params.userId },
+      }
+    );
+    console.log('put request req body >>>> ', updatedSession);
     res.json(updatedSession);
   } catch (error) {
     next(error);

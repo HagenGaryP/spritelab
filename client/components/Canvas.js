@@ -11,13 +11,15 @@ import Slider from 'react-input-slider';
 import { SketchPicker } from 'react-color';
 import { animate, createGrid, renderSaved } from '../utility';
 import { connect } from 'react-redux';
-import { createSession, saveSession } from '../store';
+import { createSession, getSession, saveSession } from '../store';
 
 let initialFrames = [];
 // let initialColors = [];
 let canvas, ctx;
 
-const Canvas = ({ user, createSess }) => {
+const Canvas = (props) => {
+  const { user, createSess, sessionId, saveFrames } = props;
+
   const [pixelSize, setPixelSize] = useState(8);
   const [pixelSelect, setPixelSelect] = useState(1);
   const [factor, setFactor] = useState(1);
@@ -35,6 +37,7 @@ const Canvas = ({ user, createSess }) => {
 
   useEffect(() => {
     canvas = canvasRef.current;
+    console.log('get session = ', getSession(user));
     getFrames();
     ctx = canvas.getContext('2d');
 
@@ -491,13 +494,16 @@ const Canvas = ({ user, createSess }) => {
             </button>
           </div>
           <button
-            onClick={
-              () => saveSession(user)
-              // localStorage.setItem(
-              //   `${currentFrame}`,
-              //   JSON.stringify(mappedGrid)
-              // )
-            }
+            onClick={() => {
+              let frameObj = JSON.parse(localStorage.getItem(initialFrames[0]));
+              let frameArr = Object.values(frameObj);
+              let session = {
+                canvas: frameArr,
+                userId: user,
+              };
+              console.log('id inside onClick >>> ', session);
+              return saveFrames(session);
+            }}
           >
             SAVE
           </button>
@@ -508,11 +514,13 @@ const Canvas = ({ user, createSess }) => {
 };
 const mapState = (state) => ({
   user: state.user.id,
+  sessionId: state.session.id,
 });
 
 const mapDispatch = (dispatch) => ({
   createSess: (session) => dispatch(createSession(session)),
-  saveSession: (sessionId) => dispatch(saveSession(sessionId)),
+  getSession: (userId) => dispatch(getSession(userId)),
+  saveFrames: (session) => dispatch(saveSession(session)),
 });
 
 export default connect(mapState, mapDispatch)(Canvas);

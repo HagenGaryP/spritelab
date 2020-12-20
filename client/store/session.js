@@ -13,7 +13,7 @@ const updateSess = (sessionId) => ({ type: UPDATE_SESS, sessionId });
 //----THUNK CREATORS----/
 export const getSession = (userId) => async (dispatch) => {
   try {
-    const { data } = await axios.get(`/api/session/${userId}`);
+    const { data } = await axios.put(`/api/session/${userId}`);
     dispatch(getSess(data));
   } catch (error) {
     console.error(error);
@@ -30,9 +30,10 @@ export const createSession = (canvas) => async (dispatch) => {
   }
 };
 
-export const saveSession = (sessId) => async (dispatch) => {
+export const saveSession = (info) => async (dispatch) => {
   try {
-    const { data } = await axios.put(`/api/session/${sessId}`);
+    const { userId } = info;
+    const { data } = await axios.put(`/api/session/${userId}`, info);
     dispatch(updateSess(data));
   } catch (error) {
     console.error(error);
