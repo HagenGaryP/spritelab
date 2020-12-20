@@ -1,12 +1,14 @@
-const router = require("express").Router();
-const { User, Session } = require("../db/models");
+const router = require('express').Router();
+const { User, Session } = require('../db/models');
 
 module.exports = router;
 
 //Get all sessions
-router.get("/", async (req, res, next) => {
+router.post('/:userId', async (req, res, next) => {
   try {
-    const allSession = await Session.findAll();
+    const allSession = await Session.findOrCreate({
+      where: { userId: req.params.userId },
+    });
     res.json(allSession);
   } catch (err) {
     next(err);
@@ -14,7 +16,7 @@ router.get("/", async (req, res, next) => {
 });
 
 //Add a new session
-router.post("/new", async (req, res, next) => {
+router.post('/new', async (req, res, next) => {
   try {
     const createSession = await Session.create(req.body);
     res.json(createSession);
@@ -24,7 +26,7 @@ router.post("/new", async (req, res, next) => {
 });
 
 //Save a session
-router.put("/:id", async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
     const updatedSession = await Session.update(req.body, {
       where: { id: req.params.id },
@@ -37,7 +39,7 @@ router.put("/:id", async (req, res, next) => {
 });
 
 //Delete a session
-router.delete("/:id", async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     const deleteSession = await Session.destroy({
       where: { id: req.params.id },

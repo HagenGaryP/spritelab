@@ -1,10 +1,10 @@
-const Sequelize = require("sequelize");
-const db = require("../db");
+const Sequelize = require('sequelize');
+const db = require('../db');
 
-const Session = db.define("session", {
+const Session = db.define('session', {
   name: {
     type: Sequelize.STRING,
-    defaultValue: "canvas",
+    defaultValue: 'canvas',
     // allowNull: false,
     // validate: {
     //   notEmpty: true,
@@ -16,7 +16,7 @@ const Session = db.define("session", {
       isValidFormat(value) {
         for (let i = 0; i < value.length; i++) {
           if (!Array.isArray(value[i])) {
-            throw new Error("Bad Value");
+            throw new Error('Bad Value');
           }
         }
       },

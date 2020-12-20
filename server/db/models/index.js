@@ -1,6 +1,6 @@
-const Frame = require("./frame");
-const Session = require("./session");
-const User = require("./user");
+const Frame = require('./frame');
+const Session = require('./session');
+const User = require('./user');
 
 // associations
 Session.belongsTo(User);
